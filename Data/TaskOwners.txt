@@ -1,0 +1,10 @@
+﻿Alice Tremblay,Project Manager
+Marc-André Gagnon,Developer
+Sophie Bouchard,Designer
+Jean-François Roy,Tester
+Émilie Leblanc,Analyst
+David Pelletier,Developer
+Julie Caron,Team Lead
+Alexandre Morin,Consultant
+Catherine Fortin,Coordinator
+Michael Smith,Support Engineer

@@ -1,32 +1,16 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using TaskManagementPortal.Models;
 
 namespace TaskManagementPortal.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+        // GET: /
         public IActionResult Index()
         {
+            // This message will be shown on the home page
+            ViewBag.TitleMessage = "Professional Task Management Portal";
+            ViewBag.Subtitle = "A demonstration of ASP.NET Core, .NET MAUI integration, and modern web development practices.";
             return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

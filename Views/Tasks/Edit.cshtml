@@ -1,0 +1,47 @@
+﻿@model TaskManagementPortal.Models.TodoTask
+@{
+    ViewData["Title"] = "Edit Task";
+    var owners = ViewBag.Owners as List<TaskManagementPortal.Models.TaskOwner>;
+}
+
+<h2>Edit Task</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Title</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3 form-check">
+        <input asp-for="IsCompleted" class="form-check-input" />
+        <label asp-for="IsCompleted" class="form-check-label">Completed</label>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Assign Owners</label>
+        @foreach (var owner in owners)
+        {
+            <div class="form-check">
+                <input type="checkbox" name="selectedOwners" value="@owner.Name"
+                       class="form-check-input"
+                       @(Model.AssignedOwners.Contains(owner.Name) ? "checked" : "") />
+                <label class="form-check-label">@owner.Name (@owner.Role)</label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

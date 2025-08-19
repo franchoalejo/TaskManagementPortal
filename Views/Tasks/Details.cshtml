@@ -1,0 +1,45 @@
+﻿@model TaskManagementPortal.Models.TodoTask
+
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Task Details</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Title</h4>
+            <p class="card-text"><strong>Description:</strong> @Model.Description</p>
+            <p class="card-text"><strong>Completed:</strong>
+                @if (Model.IsCompleted)
+                {
+                    <span class="badge bg-success">Yes</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">No</span>
+                }
+            </p>
+            <p class="card-text"><strong>Assigned Owners (@(Model.AssignedOwners?.Count ?? 0)):</strong></p>
+            <ul>
+                @if (Model.AssignedOwners != null && Model.AssignedOwners.Count > 0)
+                {
+                    foreach (var owner in Model.AssignedOwners)
+                    {
+                        <li>@owner</li>
+                    }
+                }
+                else
+                {
+                    <li>No owners assigned</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a class="btn btn-primary mx-2" asp-action="Edit" asp-route-id="@Model.Id">Edit Task</a>
+        <a class="btn btn-secondary mx-2" asp-action="Index">Back to List</a>
+    </div>
+</div>
