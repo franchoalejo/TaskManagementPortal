@@ -1,0 +1,123 @@
+[
+  {
+    "Id": 1,
+    "Title": "Prepare monthly KPI report",
+    "Description": "Compile KPIs and share with ops.",
+    "IsCompleted": false,
+    "AssignedDate": "2025-08-18T00:00:00-04:00",
+    "DueDate": "2025-09-19T00:00:00-04:00",
+    "AssignedOwners": [
+      "Alice Tremblay",
+      "Marc-Andr\u00E9 Gagnon"
+    ],
+    "DaysRemaining": 30,
+    "IsOverdue": false
+  },
+  {
+    "Id": 2,
+    "Title": "Review sprint backlog",
+    "Description": "Groom items and set priorities.",
+    "IsCompleted": false,
+    "AssignedDate": "2025-08-19T00:00:00-04:00",
+    "DueDate": "2025-08-30T00:00:00-04:00",
+    "AssignedOwners": [
+      "Sophie Bouchard"
+    ],
+    "DaysRemaining": 10,
+    "IsOverdue": false
+  },
+  {
+    "Id": 3,
+    "Title": "QA smoke tests",
+    "Description": "Run smoke tests on latest build.",
+    "IsCompleted": false,
+    "AssignedDate": "2025-08-20T00:00:00-04:00",
+    "DueDate": "2025-08-23T00:00:00-04:00",
+    "AssignedOwners": [
+      "Jean-Fran\u00E7ois Roy",
+      "\u00C9milie Leblanc"
+    ],
+    "DaysRemaining": 3,
+    "IsOverdue": false
+  },
+  {
+    "Id": 4,
+    "Title": "Database maintenance",
+    "Description": "Indexes \u0026 stats updated.",
+    "IsCompleted": true,
+    "AssignedDate": "2025-07-31T00:00:00-04:00",
+    "DueDate": "2025-08-05T00:00:00-04:00",
+    "AssignedOwners": [
+      "David Pelletier"
+    ],
+    "DaysRemaining": -15,
+    "IsOverdue": false
+  },
+  {
+    "Id": 5,
+    "Title": "Access review",
+    "Description": "Quarterly access review finished.",
+    "IsCompleted": true,
+    "AssignedDate": "2025-08-12T00:00:00-04:00",
+    "DueDate": "2025-08-19T00:00:00-04:00",
+    "AssignedOwners": [
+      "Julie Caron",
+      "Alexandre Morin"
+    ],
+    "DaysRemaining": -1,
+    "IsOverdue": false
+  },
+  {
+    "Id": 6,
+    "Title": "Release notes",
+    "Description": "Drafted and published.",
+    "IsCompleted": true,
+    "AssignedDate": "2025-08-15T00:00:00-04:00",
+    "DueDate": "2025-09-09T00:00:00-04:00",
+    "AssignedOwners": [
+      "Catherine Fortin"
+    ],
+    "DaysRemaining": 20,
+    "IsOverdue": false
+  },
+  {
+    "Id": 7,
+    "Title": "Prepare project documentation",
+    "Description": "Write and organize the technical documentation for the current sprint.",
+    "IsCompleted": false,
+    "AssignedDate": "2025-08-20T22:06:31.9642915-04:00",
+    "DueDate": "2025-08-25T22:06:31.964417-04:00",
+    "AssignedOwners": [
+      "Alice"
+    ],
+    "DaysRemaining": 5,
+    "IsOverdue": false
+  },
+  {
+    "Id": 9,
+    "Title": "Implement authentication module",
+    "Description": "Develop and test the user authentication and authorization functionality.",
+    "IsCompleted": false,
+    "AssignedDate": "2025-08-20T22:06:31.9644881-04:00",
+    "DueDate": "2025-08-30T22:06:31.9644897-04:00",
+    "AssignedOwners": [
+      "Bob",
+      "Charlie"
+    ],
+    "DaysRemaining": 10,
+    "IsOverdue": false
+  },
+  {
+    "Id": 11,
+    "Title": "Design dashboard layout",
+    "Description": "Create the initial dashboard wireframe and integrate sample Bootstrap charts.",
+    "IsCompleted": true,
+    "AssignedDate": "2025-08-18T22:06:31.9644936-04:00",
+    "DueDate": "2025-08-23T22:06:31.9644943-04:00",
+    "AssignedOwners": [
+      "Alice"
+    ],
+    "DaysRemaining": 3,
+    "IsOverdue": false
+  }
+]

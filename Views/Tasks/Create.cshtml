@@ -19,13 +19,26 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="AssignedDate" class="form-label">Assignment Date</label>
+            <input asp-for="AssignedDate" type="date" class="form-control" />
+            <span asp-validation-for="AssignedDate" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="DueDate" class="form-label">Due Date</label>
+            <input asp-for="DueDate" type="date" class="form-control" />
+            <span asp-validation-for="DueDate" class="text-danger"></span>
+        </div>
+    </div>
+
     <div class="mb-3 form-check">
         <input asp-for="IsCompleted" class="form-check-input" />
         <label asp-for="IsCompleted" class="form-check-label">Completed</label>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Assign Owners</label>
+        <label class="form-label">Assign Owners <span class="text-danger">*</span></label>
         @foreach (var owner in owners)
         {
             <div class="form-check">
@@ -33,9 +46,12 @@
                 <label class="form-check-label">@owner.Name (@owner.Role)</label>
             </div>
         }
+        <span class="text-danger" asp-validation-for="AssignedOwners"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Create Task</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+
 </form>
 
 @section Scripts {

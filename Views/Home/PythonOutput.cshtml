@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Python Script Result";
+}
+
+<h2>Python Script Result</h2>
+
+<hr />
+
+<div>
+    <h4>Generated Task Summary:</h4>
+    <pre>@ViewBag.SummaryContent</pre>
+</div>
+
+<!-- Button to download the generated summary file -->
+<a asp-controller="Home" asp-action="DownloadSummary" class="btn btn-success">
+    Download Task Summary
+</a>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+    Back to Home
+</a>

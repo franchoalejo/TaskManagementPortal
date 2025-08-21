@@ -1,27 +1,175 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
 <div class="container mt-5">
-    <!-- Main Title -->
-    <h1 class="display-4 text-primary text-center">
-        Professional Task Management Portal
-    </h1>
+    <!-- Header -->
+    <h1 class="display-4 text-primary text-center">@ViewBag.TitleMessage</h1>
+    <p class="lead text-center text-secondary">@ViewBag.Subtitle</p>
 
-    <!-- Subtitle / Description -->
-    <p class="lead text-center text-secondary">
-        A demonstration of ASP.NET Core, .NET MAUI integration, and modern web development practices.
-    </p>
+    <!-- Chart Section -->
 
-    <!-- Call to Actions -->
-    <div class="text-center mt-4">
-        <a href="/Tasks" class="btn btn-lg btn-success mx-2">View Tasks</a>
-        <a href="/Tasks/Create" class="btn btn-lg btn-primary mx-2">Create New Task</a>
+    <div class="row mt-4">
+        <!-- Column 1: Chart -->
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Task Status Overview</h5>
+                    <canvas id="tasksChart" style="max-width:100%; height:300px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 2: Task creation button -->
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm d-flex flex-column" style="min-height: 360px;">
+                <div class="card-body d-flex flex-column align-items-center justify-content-center" style="flex:1;">
+                    <h5 class="card-title mb-4">Manage Tasks</h5>
+
+                    <!-- Button to create new task -->
+                    <a asp-controller="Tasks" asp-action="Create"
+                       class="btn btn-primary w-100 mb-2">
+                        Create New Task
+                    </a>
+
+                    <!-- Button to generate demo tasks -->
+                    <button class="btn btn-primary w-100" onclick="generateDemoTasks()">
+                        Generate Demo Tasks
+                    </button>
+
+                    <hr style="width:80%;">
+
+                    <!-- Button to execute Python script -->
+                    <a asp-controller="Home" asp-action="RunPythonScript" class="btn btn-warning w-100 mt-2">
+                        <i class="bi bi-terminal me-2"></i> Run Python Script
+                    </a>
+
+                    <a asp-controller="Tasks" asp-action="ExportTasksToTxt" class="btn btn-warning w-100 mt-2">
+                        <i class="bi bi-terminal me-2"></i> Export Tasks to JSON
+                    </a>
+
+
+                    <button class="btn btn-info w-100" onclick="runPowerShellScript()">
+                        Run PowerShell Script
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Column 3: tech used in this project  -->
+
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm d-flex flex-column" style="min-height: 360px;">
+                <div class="card-body d-flex flex-column align-items-center justify-content-center" style="flex:1;">
+                    <h5 class="card-title mb-4">Technologies Used in This Project</h5>
+
+                    <a href="https://dotnet.microsoft.com/" target="_blank" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-box-arrow-up-right me-2"></i> ASP.NET Core MVC
+                    </a>
+                    <a href="https://getbootstrap.com/" target="_blank" class="btn btn-success w-100 mb-2 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-bootstrap me-2"></i> Bootstrap 5
+                    </a>
+                    <a href="https://www.chartjs.org/" target="_blank" class="btn btn-info w-100 mb-2 text-dark d-flex align-items-center justify-content-center">
+                        <i class="bi bi-bar-chart-line me-2"></i> Chart.js
+                    </a>
+                    <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/" target="_blank" class="btn btn-dark w-100 mb-2 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-code-slash me-2"></i> C# / LINQ
+                    </a>
+                    <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/views/razor" target="_blank" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-file-code me-2"></i> Razor Views
+                    </a>
+                    <a href="https://www.python.org/" target="_blank" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-python me-2"></i> Python
+                    </a>
+                    <a href="https://learn.microsoft.com/powershell/" target="_blank" class="btn btn-info w-100 text-dark d-flex align-items-center justify-content-center">
+                        <i class="bi bi-terminal me-2"></i> PowerShell
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <footer class="text-center text-muted mt-5">
-        <small>
-            &copy; 2025 Francisco Ruiz — Full-Stack .NET Developer. All rights reserved.
-        </small>
-    </footer>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Project Overview</h2>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Welcome to the Task Management Portal! This is a professional demo project built using <strong>ASP.NET Core MVC</strong> with <strong>Bootstrap 5</strong>.
+                    It's designed to showcase how modern web applications can handle tasks efficiently, track progress, and present information clearly.
+                </p>
+
+                <ul>
+                    <li><strong>Task Management:</strong> Easily create, edit, view, and delete tasks. Each task has a title, description, assignment date, due date, and completion status.</li>
+                    <li><strong>Assigning Owners:</strong> You can assign one or more team members to a task. The system ensures that every task has at least one responsible owner.</li>
+                    <li><strong>Due Dates & Countdown:</strong> Pending tasks display how many days are left until they are due. Overdue tasks are highlighted in red, while completed tasks hide the countdown.</li>
+                    <li><strong>Interactive Visualization:</strong> The dashboard includes a chart showing completed vs pending tasks. The chart updates dynamically as tasks are added or updated.</li>
+                    <li><strong>Responsive Layout:</strong> Designed with Bootstrap’s grid system to look good on desktop, tablet, and mobile screens.</li>
+                    <li><strong>Code Structure:</strong> Built using the MVC pattern. Models represent tasks and owners, Controllers handle user actions, and Views present information neatly. Data is stored in memory for demonstration purposes.</li>
+                </ul>
+
+                <p>
+                    <strong>Menu Buttons:</strong>
+                    <ul>
+                        <li><strong>Home:</strong> Returns you to this main page.</li>
+                        <li><strong>Tasks:</strong> Navigate to the list of tasks where you can manage them all.</li>
+                        <li><strong>Create New Task:</strong> Opens a form to add a new task with assigned owners and dates.</li>
+                        <li><strong>Generate Demo Tasks:</strong> Quickly populate the portal with sample tasks to see how the system works.</li>
+                    </ul>
+                </p>
+
+                <p>
+                    <strong>Technologies Used:</strong> This project leverages C#, ASP.NET Core MVC, Razor Views, Bootstrap 5 for styling, Chart.js for task visualization, and basic in-memory data handling using LINQ. It demonstrates clean code practices, responsive design, and a practical approach to task management in a web application.
+                </p>
+
+                <p class="text-muted">
+                    This project can serve as a reference for developers learning full-stack .NET development or anyone wanting to see a professional, yet simple, task management solution in action.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
+
+
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+        @using System.Text.Json
+    const tasks = @Html.Raw(JsonSerializer.Serialize(ViewBag.Tasks ?? new List<object>()));
+    const completed = tasks.filter(t => t.IsCompleted).length;
+    const pending = tasks.filter(t => !t.IsCompleted).length;
+
+    const ctx = document.getElementById('tasksChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Completed', 'Pending'],
+            datasets: [{
+                data: [completed, pending],
+                backgroundColor: ['#28a745', '#dc3545']
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    function generateDemoTasks() {
+        fetch('/Tasks/GenerateDemoTasks')
+            .then(r => r.text())
+            .then(msg => {
+                alert(msg);
+                location.reload();
+            })
+            .catch(err => console.error(err));
+    }
+</script>

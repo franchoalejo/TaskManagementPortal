@@ -1,24 +1,38 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TaskManagementPortal.Models
 {
-    // simple todo task entity used across the app
     public class TodoTask
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Title is required")]
-        [StringLength(100, ErrorMessage = "Title cant be longer than 100 chars")]
-        public string Title { get; set; } = string.Empty;
+        [Required, StringLength(100)]
+        public string Title { get; set; }
 
-        [Required(ErrorMessage = "Description is required")]
-        [StringLength(500, ErrorMessage = "Max 500 chars for description")]
-        public string Description { get; set; } = string.Empty;
+        [StringLength(1000)]
+        public string Description { get; set; }
 
-        // basic status flag, nothing fancy here, change after finish 
-        public bool IsCompleted { get; set; } = false;
+        public bool IsCompleted { get; set; }
 
-        // List of assigned owners (names)
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Assignment Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime AssignedDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Due Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DueDate { get; set; }
+
+        [Display(Name = "Owners")]
         public List<string> AssignedOwners { get; set; } = new List<string>();
+
+        // --- Convenience computed fields (not persisted) ---
+        public int DaysRemaining => (int)(DueDate.Date - DateTime.Today).TotalDays;
+        public bool IsOverdue => !IsCompleted && DueDate.Date < DateTime.Today;
     }
 }
