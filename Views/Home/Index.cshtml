@@ -9,133 +9,119 @@
 
     <!-- Chart Section -->
 
-    <div class="row mt-4">
-        <!-- Column 1: Chart -->
-        <div class="col-md-4 text-center">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Task Status Overview</h5>
-                    <canvas id="tasksChart" style="max-width:100%; height:300px;"></canvas>
+        <!-- Top Row: Three Cards -->
+        <div class="row mt-4">
+            <!-- Card 1: Task Status Chart -->
+            <div class="col-lg-4 col-md-12 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Task Status Overview</h5>
+                        <canvas id="tasksChart" style="max-width:100%; height:300px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Manage Tasks -->
+            <div class="col-lg-4 col-md-12 mb-3">
+                <div class="card shadow-sm d-flex flex-column">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <h5 class="card-title mb-3 text-center">Manage Tasks</h5>
+
+                        <a asp-controller="Tasks" asp-action="Create" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-plus-circle me-2"></i> Create New Task
+                        </a>
+                        <button class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center" onclick="generateDemoTasks()">
+                            <i class="bi bi-people-fill me-2"></i> Generate +3 Demo Tasks
+                        </button>
+
+                        <a asp-controller="Home" asp-action="RunPythonScript" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-terminal me-2"></i> Run Python Script
+                        </a>
+                        <a asp-controller="Home" asp-action="RunPowerShellReminder" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-magic me-2"></i> Run PowerShell Reminder
+                        </a>
+                        <a asp-controller="Home" asp-action="RunNodeReport" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-file-earmark-bar-graph me-2"></i> Generate Node Report
+                        </a>
+                        <a asp-controller="Tasks" asp-action="ExportTasksToTxt" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-download me-2"></i> Export Tasks to JSON
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Technologies Used -->
+            <div class="col-lg-4 col-md-12 mb-3">
+                <div class="card shadow-sm d-flex flex-column">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <h5 class="card-title mb-3 text-center">Technologies & Integrations</h5>
+
+                        <a href="https://dotnet.microsoft.com/" target="_blank" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-box-arrow-up-right me-2"></i> ASP.NET Core MVC
+                        </a>
+                        <a href="https://getbootstrap.com/" target="_blank" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-bootstrap me-2"></i> Bootstrap 5
+                        </a>
+                        <a href="https://www.chartjs.org/" target="_blank" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-bar-chart-line me-2"></i> Chart.js
+                        </a>
+                        <a href="https://www.javascript.com/" target="_blank" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-code-slash me-2"></i> JavaScript
+                        </a>
+                        <a href="https://nodejs.org/" target="_blank" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-node-plus-fill me-2"></i> Node.js
+                        </a>
+                        <a href="https://www.python.org/" target="_blank" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-python me-2"></i> Python
+                        </a>
+                        <a href="https://learn.microsoft.com/powershell/" target="_blank" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-terminal me-2"></i> PowerShell
+                        </a>
+                        <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/" target="_blank" class="btn btn-warning w-100 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-list-check me-2"></i> C# / LINQ
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Column 2: Task creation button -->
-        <div class="col-md-4 text-center">
-            <div class="card shadow-sm d-flex flex-column" style="min-height: 360px;">
-                <div class="card-body d-flex flex-column align-items-center justify-content-center" style="flex:1;">
-                    <h5 class="card-title mb-4">Manage Tasks</h5>
-
-                    <!-- Button to create new task -->
-                    <a asp-controller="Tasks" asp-action="Create"
-                       class="btn btn-primary w-100 mb-2">
-                        Create New Task
-                    </a>
-
-                    <!-- Button to generate demo tasks -->
-                    <button class="btn btn-primary w-100" onclick="generateDemoTasks()">
-                        Generate Demo Tasks
-                    </button>
-
-                    <hr style="width:80%;">
-
-                    <!-- Button to execute Python script -->
-                    <a asp-controller="Home" asp-action="RunPythonScript" class="btn btn-warning w-100 mt-2">
-                        <i class="bi bi-terminal me-2"></i> Run Python Script
-                    </a>
-
-                    <a asp-controller="Tasks" asp-action="ExportTasksToTxt" class="btn btn-warning w-100 mt-2">
-                        <i class="bi bi-terminal me-2"></i> Export Tasks to JSON
-                    </a>
 
 
-                    <button class="btn btn-info w-100" onclick="runPowerShellScript()">
-                        Run PowerShell Script
-                    </button>
 
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Column 3: tech used in this project  -->
-
-        <div class="col-md-4 text-center">
-            <div class="card shadow-sm d-flex flex-column" style="min-height: 360px;">
-                <div class="card-body d-flex flex-column align-items-center justify-content-center" style="flex:1;">
-                    <h5 class="card-title mb-4">Technologies Used in This Project</h5>
-
-                    <a href="https://dotnet.microsoft.com/" target="_blank" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
-                        <i class="bi bi-box-arrow-up-right me-2"></i> ASP.NET Core MVC
-                    </a>
-                    <a href="https://getbootstrap.com/" target="_blank" class="btn btn-success w-100 mb-2 d-flex align-items-center justify-content-center">
-                        <i class="bi bi-bootstrap me-2"></i> Bootstrap 5
-                    </a>
-                    <a href="https://www.chartjs.org/" target="_blank" class="btn btn-info w-100 mb-2 text-dark d-flex align-items-center justify-content-center">
-                        <i class="bi bi-bar-chart-line me-2"></i> Chart.js
-                    </a>
-                    <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/" target="_blank" class="btn btn-dark w-100 mb-2 d-flex align-items-center justify-content-center">
-                        <i class="bi bi-code-slash me-2"></i> C# / LINQ
-                    </a>
-                    <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/views/razor" target="_blank" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
-                        <i class="bi bi-file-code me-2"></i> Razor Views
-                    </a>
-                    <a href="https://www.python.org/" target="_blank" class="btn btn-warning w-100 mb-2 d-flex align-items-center justify-content-center">
-                        <i class="bi bi-python me-2"></i> Python
-                    </a>
-                    <a href="https://learn.microsoft.com/powershell/" target="_blank" class="btn btn-info w-100 text-dark d-flex align-items-center justify-content-center">
-                        <i class="bi bi-terminal me-2"></i> PowerShell
-                    </a>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-
+    <!-- Project Overview Section -->
     <div class="container mt-5">
         <h2 class="text-center mb-4">Project Overview</h2>
-
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    Welcome to the Task Management Portal! This is a professional demo project built using <strong>ASP.NET Core MVC</strong> with <strong>Bootstrap 5</strong>.
-                    It's designed to showcase how modern web applications can handle tasks efficiently, track progress, and present information clearly.
+                    Welcome to the Task Management Portal! This demo project uses <strong>ASP.NET Core MVC</strong> with <strong>Bootstrap 5</strong> and demonstrates how modern web apps can manage tasks efficiently.
                 </p>
-
                 <ul>
-                    <li><strong>Task Management:</strong> Easily create, edit, view, and delete tasks. Each task has a title, description, assignment date, due date, and completion status.</li>
-                    <li><strong>Assigning Owners:</strong> You can assign one or more team members to a task. The system ensures that every task has at least one responsible owner.</li>
-                    <li><strong>Due Dates & Countdown:</strong> Pending tasks display how many days are left until they are due. Overdue tasks are highlighted in red, while completed tasks hide the countdown.</li>
-                    <li><strong>Interactive Visualization:</strong> The dashboard includes a chart showing completed vs pending tasks. The chart updates dynamically as tasks are added or updated.</li>
-                    <li><strong>Responsive Layout:</strong> Designed with Bootstrap’s grid system to look good on desktop, tablet, and mobile screens.</li>
-                    <li><strong>Code Structure:</strong> Built using the MVC pattern. Models represent tasks and owners, Controllers handle user actions, and Views present information neatly. Data is stored in memory for demonstration purposes.</li>
+                    <li><strong>Task Management:</strong> Create, edit, view, and delete tasks with assignment dates, due dates, and completion status.</li>
+                    <li><strong>Assigning Owners:</strong> Tasks can have one or more assigned owners. System ensures every task has at least one responsible owner.</li>
+                    <li><strong>Due Dates & Countdown:</strong> Pending tasks show how many days remain until due. Overdue tasks are highlighted.</li>
+                    <li><strong>Interactive Visualization:</strong> Pie chart of completed vs pending tasks updates dynamically.</li>
+                    <li><strong>Integration Features:</strong> Execute Python scripts, PowerShell reminders, Node.js interactive reports, and export JSON files.</li>
+                    <li><strong>Responsive Design:</strong> Bootstrap grid ensures layout works on desktop, tablet, and mobile.</li>
                 </ul>
 
                 <p>
-                    <strong>Menu Buttons:</strong>
-                    <ul>
-                        <li><strong>Home:</strong> Returns you to this main page.</li>
-                        <li><strong>Tasks:</strong> Navigate to the list of tasks where you can manage them all.</li>
-                        <li><strong>Create New Task:</strong> Opens a form to add a new task with assigned owners and dates.</li>
-                        <li><strong>Generate Demo Tasks:</strong> Quickly populate the portal with sample tasks to see how the system works.</li>
-                    </ul>
+                    <strong>Menu Buttons:</strong> All buttons are consistent width, colored, with icons. Blue for task creation, yellow for scripts & exports. Each button demonstrates integration with different technologies.
                 </p>
 
                 <p>
-                    <strong>Technologies Used:</strong> This project leverages C#, ASP.NET Core MVC, Razor Views, Bootstrap 5 for styling, Chart.js for task visualization, and basic in-memory data handling using LINQ. It demonstrates clean code practices, responsive design, and a practical approach to task management in a web application.
+                    <strong>Technologies Links:</strong> Links go to official documentation by technology developers. This showcases technical capabilities in a simple way.
                 </p>
 
                 <p class="text-muted">
-                    This project can serve as a reference for developers learning full-stack .NET development or anyone wanting to see a professional, yet simple, task management solution in action.
+                    This project can serve as a reference for developers learning full-stack .NET development. You can <strong>see, run this code</strong> directly. Visit the GitHub repository:
+                    <a href="https://github.com/franchoalejo/TaskManagementPortal" target="_blank">TaskManagementPortal</a>
                 </p>
             </div>
         </div>
     </div>
-
-
-
 </div>
+
 
 
 

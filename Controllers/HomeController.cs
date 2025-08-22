@@ -27,8 +27,151 @@ namespace TaskManagementPortal.Controllers
         }
 
 
+        // Action to run the Node.js script for generating a report - remember to have Node.js installed on the server - initially this will run the script in the NodeScripts folder
 
-private string TempDir => Path.Combine(Path.GetTempPath(), "TaskManagementPortal"); // Temporary folder for all generated files
+        public IActionResult RunNodeReport()
+        {
+            try
+            {
+                if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
+
+                string scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "NodeScripts", "generate_report.js");
+                if (!System.IO.File.Exists(scriptPath))
+                {
+                    return Content("Node script not found at " + scriptPath);
+                }
+
+                // Generar el JSON actualizado para Node
+                string jsonPath = Path.Combine(TempDir, "tasks.json");
+                var tasksData = TasksController.GetAllTasks().Select(t => new
+                {
+                    t.Id,
+                    t.Title,
+                    t.Description,
+                    t.AssignedDate,
+                    t.DueDate,
+                    t.IsCompleted,
+                    AssignedOwners = t.AssignedOwners
+                }).ToList();
+                var json = JsonSerializer.Serialize(tasksData, new JsonSerializerOptions { WriteIndented = true });
+                System.IO.File.WriteAllText(jsonPath, json);
+
+                // Ejecutar Node
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "node",
+                    Arguments = $"\"{scriptPath}\" \"{TempDir}\"", // pasar carpeta temporal
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using var process = Process.Start(psi);
+                string output = process.StandardOutput.ReadToEnd();
+                string errors = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                ViewBag.NodeOutput = output;
+                ViewBag.NodeErrors = errors;
+
+                // Leer el HTML generado
+                string reportPath = Path.Combine(TempDir, "tasks_report.html");
+                ViewBag.ReportHtml = System.IO.File.Exists(reportPath)
+                    ? System.IO.File.ReadAllText(reportPath)
+                    : "<p>No report was generated.</p>";
+
+                return View("NodeOutput");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.NodeErrors = ex.Message;
+                ViewBag.ReportHtml = "<p>Error generating report.</p>";
+                return View("NodeOutput");
+            }
+        }
+
+
+
+        // Download the Node report
+        public IActionResult DownloadNodeReport()
+        {
+            string filePath = Path.Combine(TempDir, "tasks_report.html");
+            if (!System.IO.File.Exists(filePath))
+                return Content("Report file not found.");
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "text/html", "tasks_report.html");
+        }
+
+
+
+
+
+
+        //script to show a reminder using PowerShell, this is only for show the use; using  ExecutionPolicy Bypass -- in production chamge this to RemoteSigned or AllSigned
+
+        public IActionResult RunPowerShellReminder()
+        {
+            try
+            {
+                if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
+
+                // Instead of generating tasks.json, generate the summary text file that PowerShell expects
+                string summaryPath = Path.Combine(TempDir, "task_summary.txt");
+
+                // Prepare summary content
+                var completed = TasksController.tasks.Where(t => t.IsCompleted).ToList();
+                var pending = TasksController.tasks.Where(t => !t.IsCompleted).ToList();
+                var nearDue = pending
+                    .Where(t => (t.DueDate - DateTime.Today).TotalDays <= 3)
+                    .Select(t => t.Title)
+                    .ToList();
+
+                var lines = new List<string>
+        {
+            "Task Summary Report",
+            "-------------------",
+            $"Total Tasks: {TasksController.tasks.Count}",
+            $"Completed: {completed.Count}",
+            $"Pending: {pending.Count}",
+            $"Tasks Near Due: {string.Join(", ", nearDue)}"
+        };
+
+                // Overwrite the file each time
+                System.IO.File.WriteAllLines(summaryPath, lines);
+
+                // Execute the PowerShell script
+                string scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "Scripts", "show_reminder.ps1");
+
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "powershell",
+                    Arguments = $"-ExecutionPolicy Bypass -File \"{scriptPath}\"",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using var process = Process.Start(psi);
+                process.WaitForExit();
+
+                // Show the confirmation page
+                return View("ReminderConfirmation");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("ReminderError");
+            }
+        }
+
+
+
+
+
+        private string TempDir => Path.Combine(Path.GetTempPath(), "TaskManagementPortal"); // Temporary folder for all generated files
 
 
     public IActionResult RunPythonScript()

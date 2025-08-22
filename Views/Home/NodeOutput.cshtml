@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Node Report";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Tasks Report</h1>
+
+    @if (!string.IsNullOrEmpty(ViewBag.NodeErrors))
+    {
+        <div class="alert alert-danger mt-3">
+            <strong>Errors:</strong> @ViewBag.NodeErrors
+        </div>
+    }
+
+    <div class="mt-4">
+        @Html.Raw(ViewBag.ReportHtml)
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <a asp-action="DownloadNodeReport" class="btn btn-primary">Download Report</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+
+                $(document).ready(function () {
+            var table = $('#tasksTable'); // ID de tu tabla
+            if (table.length && !$.fn.DataTable.isDataTable(table)) {
+                table.DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    info: true
+                });
+            }
+        });
+
+
+    </script>
+}
