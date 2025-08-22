@@ -83,7 +83,62 @@ This project combines a wide set of modern technologies:
 
 *(Screenshots and GIF demos coming soon.)*
 
+## 📂 Repository Structure
+TaskManagementPortal/
+│-- Controllers/ # MVC controllers (Tasks, Home, APIs)
+│-- Views/ # Razor pages (Index, Manage Tasks, etc.)
+│-- Models/ # EF Core models (Task, TaskOwner)
+│-- Scripts/ # PowerShell & Node automation scripts
+│-- wwwroot/ # Frontend assets (CSS, JS, images)
+│-- README.md
+
 ---
 
-## 📂 Repository Structure
+## ⚡ Why This Project?
+
+This portal is **more than just a task tracker**:
+- It shows how to integrate **desktop OS features** (Windows notifications) with a web app.
+- Demonstrates **enterprise-ready patterns** with EF Core and modular controllers.
+- A **learning showcase** for students and professionals transitioning into full-stack .NET.
+- Illustrates **clean UI/UX** design with responsive, mobile-first principles.
+
+---
+
+## 📖 How to Use & Learn From This Project
+
+1. Clone the repository.
+2. Set up the SQL Server database (scripts provided).
+3. Run the ASP.NET Core app.
+4. Explore:
+   - Manage tasks through the UI.
+   - Trigger the PowerShell reminder script.
+   - Review automation demos for Node.js.
+
+This project can **serve as a template/reference** for building similar solutions.
+
+---
+
+## 🔗 Live Demo & Source Code
+
+- **GitHub Repository:** [TaskManagementPortal](https://github.com/franchoalejo/TaskManagementPortal)  
+- **LinkedIn (contact):** [linkedin.com/in/f-a-ruiz](https://linkedin.com/in/f-a-ruiz)  
+
+---
+
+## 📝 Final Notes
+
+This project is a **demonstration of technical capabilities**.  
+It highlights just a **fraction of the potential** of these technologies.  
+I specialize in the **implementation and integration of modern full-stack solutions**, and this repo is one example of that.
+
+Feel free to explore the code and adapt it for your own learning or projects.
+
+---
+
+> “This project serves as a learning and reference tool for anyone interested in full-stack .NET, automation, and professional task management solutions.”
+
+
+---
+
+
 
