@@ -21,7 +21,9 @@
     <None Include="wwwroot\Data\TaskOwners.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="wwwroot\NodeScripts\generate_report.js" />
+    <None Include="wwwroot\NodeScripts\generate_report.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
