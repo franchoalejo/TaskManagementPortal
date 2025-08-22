@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - fruiz-demo-asp
+name: Build and deploy TaskManagementPortal to Azure Web App - fruiz-demo-asp
 
 on:
   push:
@@ -7,61 +7,45 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: windows-latest
-    permissions:
-      contents: read
 
     steps:
+      # 1. Checkout code
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      # 2. Setup .NET 8
+      - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
-      - name: Restore dependencies
-        run: dotnet restore
+      # 3. Restore dependencies
+      - name: Restore
+        run: dotnet restore TaskManagementPortal/TaskManagementPortal.csproj
 
+      # 4. Build
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build TaskManagementPortal/TaskManagementPortal.csproj --configuration Release
 
+      # 5. Publish to ./publish
       - name: Publish
-        run: dotnet publish --configuration Release --output ./publish
+        run: dotnet publish TaskManagementPortal/TaskManagementPortal.csproj --configuration Release --output ./publish
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: dotnet-app
-          path: ./publish
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: dotnet-app
-
+      # 6. Login to Azure
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6C19E97F45764479AD1D63A6CFE31963 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D6EEBBC0E00D41A2814F9712339C31AB }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0555EBB0C7F94E62BBC139C3EF815DDD }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
+      # 7. Deploy to Azure Web App
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'fruiz-demo-asp'
-          slot-name: 'Production'
-          package: ./dotnet-app
-
+          package: ./publish
 
           
+
