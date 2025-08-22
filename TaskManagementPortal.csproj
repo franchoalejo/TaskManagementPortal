@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\Data\TaskOwners.txt" />
+    <Content Remove="wwwroot\NodeScripts\generate_report.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,16 @@
     <None Include="wwwroot\Data\TaskOwners.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="wwwroot\NodeScripts\generate_report.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\NodeScripts\package-lock.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\NodeScripts\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
