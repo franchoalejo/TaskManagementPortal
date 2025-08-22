@@ -20,17 +20,17 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      # 3. Restore dependencies
+      # 3. Restore dependencies (archivo .csproj está en la raíz)
       - name: Restore
-        run: dotnet restore TaskManagementPortal/TaskManagementPortal.csproj
+        run: dotnet restore TaskManagementPortal.csproj
 
       # 4. Build
       - name: Build
-        run: dotnet build TaskManagementPortal/TaskManagementPortal.csproj --configuration Release
+        run: dotnet build TaskManagementPortal.csproj --configuration Release
 
-      # 5. Publish to ./publish
+      # 5. Publish a ./publish
       - name: Publish
-        run: dotnet publish TaskManagementPortal/TaskManagementPortal.csproj --configuration Release --output ./publish
+        run: dotnet publish TaskManagementPortal.csproj --configuration Release --output ./publish
 
       # 6. Login to Azure
       - name: Login to Azure
@@ -47,5 +47,7 @@ jobs:
           app-name: 'fruiz-demo-asp'
           package: ./publish
 
+
           
+
 
