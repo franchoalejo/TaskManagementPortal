@@ -1,7 +1,7 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# Build and Deploy ASP.NET Core App to Azure (Windows)
+# Works with .NET 8 and App Service Windows plan (Free tier)
 
-name: Build and deploy ASP.Net Core app to Azure Web App - fruiz-demo-asp
+name: Build and Deploy ASP.NET Core App to Azure
 
 on:
   push:
@@ -10,56 +10,45 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: windows-latest
-    permissions:
-      contents: read #This is required for actions/checkout
 
     steps:
-      - uses: actions/checkout@v4
+      # 1️⃣ Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      # 2️⃣ Set up .NET 8
+      - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      # 3️⃣ Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore TaskManagementPortal.csproj
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+      # 4️⃣ Build project
+      - name: Build
+        run: dotnet build TaskManagementPortal.csproj --configuration Release
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+      # 5️⃣ Publish project to folder
+      - name: Publish
+        run: dotnet publish TaskManagementPortal.csproj --configuration Release --output ${{ github.workspace }}\publish --self-contained false
 
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
-      
+      # 6️⃣ Login to Azure using Service Principal (from secrets)
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D0C3EAFEF2CB4021B559EEAA30D0F9AD }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CE0E18A867CE483FBC1C3C41CE60CEA1 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A4721A4BA741461DB43DEB3432F5464A }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
+      # 7️⃣ Deploy published folder to Azure Web App
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'fruiz-demo-asp'
+          app-name: 'fruiz-demo-asp'          
           slot-name: 'Production'
-          package: .
-          
+          package: ${{ github.workspace }}\publish
