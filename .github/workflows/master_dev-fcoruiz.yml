@@ -63,8 +63,11 @@ jobs:
           app-name: 'dev-fcoruiz'
           slot-name: 'Production'
           package: ./myapp
+          publish-profile: false
+          type: dotnetcore
 
           
+
 
 
 
