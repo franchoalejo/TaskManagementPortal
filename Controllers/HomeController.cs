@@ -33,7 +33,11 @@ namespace TaskManagementPortal.Controllers
         {
             try
             {
-                if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
+                string tempDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "reports");
+                if (!Directory.Exists(tempDir))
+                {
+                    Directory.CreateDirectory(tempDir);
+                }
 
                 string scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "NodeScripts", "generate_report.js");
                 if (!System.IO.File.Exists(scriptPath))
@@ -41,8 +45,7 @@ namespace TaskManagementPortal.Controllers
                     return Content("Node script not found at " + scriptPath);
                 }
 
-                // Generar el JSON actualizado para Node
-                string jsonPath = Path.Combine(TempDir, "tasks.json");
+                string jsonPath = Path.Combine(tempDir, "tasks.json");
                 var tasksData = TasksController.GetAllTasks().Select(t => new
                 {
                     t.Id,
@@ -53,14 +56,14 @@ namespace TaskManagementPortal.Controllers
                     t.IsCompleted,
                     AssignedOwners = t.AssignedOwners
                 }).ToList();
+
                 var json = JsonSerializer.Serialize(tasksData, new JsonSerializerOptions { WriteIndented = true });
                 System.IO.File.WriteAllText(jsonPath, json);
 
-                // Ejecutar Node
                 var psi = new ProcessStartInfo
                 {
                     FileName = "node",
-                    Arguments = $"\"{scriptPath}\" \"{TempDir}\"", // pasar carpeta temporal
+                    Arguments = $"\"{scriptPath}\" \"{tempDir}\"", // Pasar la ruta donde está el tasks.json
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
@@ -72,21 +75,20 @@ namespace TaskManagementPortal.Controllers
                 string errors = process.StandardError.ReadToEnd();
                 process.WaitForExit();
 
-                ViewBag.NodeOutput = output;
+                ViewBag.NodeOutput = output + "\n" + "Script Path: " + scriptPath + "\n" + "TempDir: " + tempDir + "\n" + "JSON Path: " + jsonPath;
                 ViewBag.NodeErrors = errors;
 
-                // Leer el HTML generado
-                string reportPath = Path.Combine(TempDir, "tasks_report.html");
+                string reportPath = Path.Combine(tempDir, "tasks_report.html");
                 ViewBag.ReportHtml = System.IO.File.Exists(reportPath)
                     ? System.IO.File.ReadAllText(reportPath)
                     : "<p>No report was generated.</p>";
 
                 return View("NodeOutput");
+
             }
             catch (Exception ex)
             {
                 ViewBag.NodeErrors = ex.Message;
-                ViewBag.ReportHtml = "<p>Error generating report.</p>";
                 return View("NodeOutput");
             }
         }

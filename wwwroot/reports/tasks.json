@@ -1,0 +1,105 @@
+[
+  {
+    "Id": 1,
+    "Title": "Prepare monthly KPI report",
+    "Description": "Compile KPIs and share with ops.",
+    "AssignedDate": "2025-08-22T00:00:00-04:00",
+    "DueDate": "2025-09-23T00:00:00-04:00",
+    "IsCompleted": false,
+    "AssignedOwners": [
+      "Alice Tremblay",
+      "Marc-Andr\u00E9 Gagnon"
+    ]
+  },
+  {
+    "Id": 2,
+    "Title": "Review sprint backlog",
+    "Description": "Groom items and set priorities.",
+    "AssignedDate": "2025-08-23T00:00:00-04:00",
+    "DueDate": "2025-09-03T00:00:00-04:00",
+    "IsCompleted": false,
+    "AssignedOwners": [
+      "Sophie Bouchard"
+    ]
+  },
+  {
+    "Id": 3,
+    "Title": "QA smoke tests",
+    "Description": "Run smoke tests on latest build.",
+    "AssignedDate": "2025-08-24T00:00:00-04:00",
+    "DueDate": "2025-08-27T00:00:00-04:00",
+    "IsCompleted": false,
+    "AssignedOwners": [
+      "Jean-Fran\u00E7ois Roy",
+      "\u00C9milie Leblanc"
+    ]
+  },
+  {
+    "Id": 4,
+    "Title": "Database maintenance",
+    "Description": "Indexes \u0026 stats updated.",
+    "AssignedDate": "2025-08-04T00:00:00-04:00",
+    "DueDate": "2025-08-09T00:00:00-04:00",
+    "IsCompleted": true,
+    "AssignedOwners": [
+      "David Pelletier"
+    ]
+  },
+  {
+    "Id": 5,
+    "Title": "Access review",
+    "Description": "Quarterly access review finished.",
+    "AssignedDate": "2025-08-16T00:00:00-04:00",
+    "DueDate": "2025-08-23T00:00:00-04:00",
+    "IsCompleted": true,
+    "AssignedOwners": [
+      "Julie Caron",
+      "Alexandre Morin"
+    ]
+  },
+  {
+    "Id": 6,
+    "Title": "Release notes",
+    "Description": "Drafted and published.",
+    "AssignedDate": "2025-08-19T00:00:00-04:00",
+    "DueDate": "2025-09-13T00:00:00-04:00",
+    "IsCompleted": true,
+    "AssignedOwners": [
+      "Catherine Fortin"
+    ]
+  },
+  {
+    "Id": 7,
+    "Title": "Prepare project documentation",
+    "Description": "Write and organize the technical documentation for the current sprint.",
+    "AssignedDate": "2025-08-24T09:39:58.4645287-04:00",
+    "DueDate": "2025-08-29T09:39:58.4645515-04:00",
+    "IsCompleted": false,
+    "AssignedOwners": [
+      "Alice"
+    ]
+  },
+  {
+    "Id": 9,
+    "Title": "Implement authentication module",
+    "Description": "Develop and test the user authentication and authorization functionality.",
+    "AssignedDate": "2025-08-24T09:39:58.465081-04:00",
+    "DueDate": "2025-09-03T09:39:58.4650815-04:00",
+    "IsCompleted": false,
+    "AssignedOwners": [
+      "Bob",
+      "Charlie"
+    ]
+  },
+  {
+    "Id": 11,
+    "Title": "Design dashboard layout",
+    "Description": "Create the initial dashboard wireframe and integrate sample Bootstrap charts.",
+    "AssignedDate": "2025-08-22T09:39:58.4650819-04:00",
+    "DueDate": "2025-08-27T09:39:58.465082-04:00",
+    "IsCompleted": true,
+    "AssignedOwners": [
+      "Alice"
+    ]
+  }
+]

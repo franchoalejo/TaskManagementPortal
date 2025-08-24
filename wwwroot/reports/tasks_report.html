@@ -1,0 +1,130 @@
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks Report</title>
+    <style>
+        body { font-family: "Segoe UI", Arial, sans-serif; margin: 40px; color: #333; }
+        h1 { text-align: center; color: #444; }
+        .report-container { max-width: 1000px; margin: 0 auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 14px; }
+        th { background-color: #4CAF50; color: white; text-transform: uppercase; font-size: 13px; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #f1f1f1; }
+        .completed { color: green; font-weight: bold; }
+        .pending { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <h1>Tasks Report</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Assigned Date</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Owners</th>
+                </tr>
+            </thead>
+            <tbody>
+
+        <tr>
+            <td>1</td>
+            <td>Prepare monthly KPI report</td>
+            <td>Compile KPIs and share with ops.</td>
+            <td>22/08/2025</td>
+            <td>23/09/2025</td>
+            <td class="pending">Pending</td>
+            <td>Alice Tremblay, Marc-André Gagnon</td>
+        </tr>
+    
+        <tr>
+            <td>2</td>
+            <td>Review sprint backlog</td>
+            <td>Groom items and set priorities.</td>
+            <td>23/08/2025</td>
+            <td>03/09/2025</td>
+            <td class="pending">Pending</td>
+            <td>Sophie Bouchard</td>
+        </tr>
+    
+        <tr>
+            <td>3</td>
+            <td>QA smoke tests</td>
+            <td>Run smoke tests on latest build.</td>
+            <td>24/08/2025</td>
+            <td>27/08/2025</td>
+            <td class="pending">Pending</td>
+            <td>Jean-François Roy, Émilie Leblanc</td>
+        </tr>
+    
+        <tr>
+            <td>4</td>
+            <td>Database maintenance</td>
+            <td>Indexes & stats updated.</td>
+            <td>04/08/2025</td>
+            <td>09/08/2025</td>
+            <td class="completed">Completed</td>
+            <td>David Pelletier</td>
+        </tr>
+    
+        <tr>
+            <td>5</td>
+            <td>Access review</td>
+            <td>Quarterly access review finished.</td>
+            <td>16/08/2025</td>
+            <td>23/08/2025</td>
+            <td class="completed">Completed</td>
+            <td>Julie Caron, Alexandre Morin</td>
+        </tr>
+    
+        <tr>
+            <td>6</td>
+            <td>Release notes</td>
+            <td>Drafted and published.</td>
+            <td>19/08/2025</td>
+            <td>13/09/2025</td>
+            <td class="completed">Completed</td>
+            <td>Catherine Fortin</td>
+        </tr>
+    
+        <tr>
+            <td>7</td>
+            <td>Prepare project documentation</td>
+            <td>Write and organize the technical documentation for the current sprint.</td>
+            <td>24/08/2025</td>
+            <td>29/08/2025</td>
+            <td class="pending">Pending</td>
+            <td>Alice</td>
+        </tr>
+    
+        <tr>
+            <td>9</td>
+            <td>Implement authentication module</td>
+            <td>Develop and test the user authentication and authorization functionality.</td>
+            <td>24/08/2025</td>
+            <td>03/09/2025</td>
+            <td class="pending">Pending</td>
+            <td>Bob, Charlie</td>
+        </tr>
+    
+        <tr>
+            <td>11</td>
+            <td>Design dashboard layout</td>
+            <td>Create the initial dashboard wireframe and integrate sample Bootstrap charts.</td>
+            <td>22/08/2025</td>
+            <td>27/08/2025</td>
+            <td class="completed">Completed</td>
+            <td>Alice</td>
+        </tr>
+    
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
