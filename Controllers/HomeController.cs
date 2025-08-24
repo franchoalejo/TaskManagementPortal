@@ -33,18 +33,24 @@ namespace TaskManagementPortal.Controllers
         {
             try
             {
+                // Create the temporary reports directory if it doesn't exist
+                // CHANGE: Same as original
                 string tempDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "reports");
                 if (!Directory.Exists(tempDir))
                 {
                     Directory.CreateDirectory(tempDir);
                 }
 
+                // Define the path to the Node.js script
+                // CHANGE: Same as original
                 string scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "NodeScripts", "generate_report.js");
                 if (!System.IO.File.Exists(scriptPath))
                 {
                     return Content("Node script not found at " + scriptPath);
                 }
 
+                // Serialize tasks data to JSON file
+                // CHANGE: Same as original
                 string jsonPath = Path.Combine(tempDir, "tasks.json");
                 var tasksData = TasksController.GetAllTasks().Select(t => new
                 {
@@ -60,24 +66,38 @@ namespace TaskManagementPortal.Controllers
                 var json = JsonSerializer.Serialize(tasksData, new JsonSerializerOptions { WriteIndented = true });
                 System.IO.File.WriteAllText(jsonPath, json);
 
+                // Setup process start info for Node.js script
+                // CHANGE: Same as original, but output/error redirection will now be sent to Console for Azure Logging
                 var psi = new ProcessStartInfo
                 {
                     FileName = "node",
-                    Arguments = $"\"{scriptPath}\" \"{tempDir}\"", // Pasar la ruta donde está el tasks.json
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
+                    Arguments = $"\"{scriptPath}\" \"{tempDir}\"", // Pass the path to tasks.json
+                    RedirectStandardOutput = true, // CHANGE: Capture stdout
+                    RedirectStandardError = true,  // CHANGE: Capture stderr
+                    UseShellExecute = false,       // CHANGE: Required to redirect output
                     CreateNoWindow = true
                 };
 
                 using var process = Process.Start(psi);
-                string output = process.StandardOutput.ReadToEnd();
-                string errors = process.StandardError.ReadToEnd();
+
+                // Redirect Node.js output to Console for Application Logging in Azure
+                // CHANGE: New code block to ensure console.log is captured by Azure
+                process.OutputDataReceived += (sender, e) => { if (e.Data != null) Console.WriteLine(e.Data); };
+                process.ErrorDataReceived += (sender, e) => { if (e.Data != null) Console.WriteLine(e.Data); };
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+
+                // Wait for Node.js process to finish
+                // CHANGE: Same as original
                 process.WaitForExit();
 
-                ViewBag.NodeOutput = output + "\n" + "Script Path: " + scriptPath + "\n" + "TempDir: " + tempDir + "\n" + "JSON Path: " + jsonPath;
-                ViewBag.NodeErrors = errors;
+                // Store information for display in the view
+                // CHANGE: Instead of reading output, instruct user to check Azure logs
+                ViewBag.NodeOutput = $"Script Path: {scriptPath}\nTempDir: {tempDir}\nJSON Path: {jsonPath}";
+                ViewBag.NodeErrors = "Check Application Logging (Log Stream) for Node logs."; // CHANGE: Inform user
 
+                // Read generated report if exists
+                // CHANGE: Same as original
                 string reportPath = Path.Combine(tempDir, "tasks_report.html");
                 ViewBag.ReportHtml = System.IO.File.Exists(reportPath)
                     ? System.IO.File.ReadAllText(reportPath)
@@ -88,6 +108,8 @@ namespace TaskManagementPortal.Controllers
             }
             catch (Exception ex)
             {
+                // Capture any exceptions
+                // CHANGE: Same as original
                 ViewBag.NodeErrors = ex.Message;
                 return View("NodeOutput");
             }

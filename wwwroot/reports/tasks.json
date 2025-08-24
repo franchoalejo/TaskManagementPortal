@@ -72,8 +72,8 @@
     "Id": 7,
     "Title": "Prepare project documentation",
     "Description": "Write and organize the technical documentation for the current sprint.",
-    "AssignedDate": "2025-08-24T09:39:58.4645287-04:00",
-    "DueDate": "2025-08-29T09:39:58.4645515-04:00",
+    "AssignedDate": "2025-08-24T12:14:56.018135-04:00",
+    "DueDate": "2025-08-29T12:14:56.0181518-04:00",
     "IsCompleted": false,
     "AssignedOwners": [
       "Alice"
@@ -83,8 +83,8 @@
     "Id": 9,
     "Title": "Implement authentication module",
     "Description": "Develop and test the user authentication and authorization functionality.",
-    "AssignedDate": "2025-08-24T09:39:58.465081-04:00",
-    "DueDate": "2025-09-03T09:39:58.4650815-04:00",
+    "AssignedDate": "2025-08-24T12:14:56.0181891-04:00",
+    "DueDate": "2025-09-03T12:14:56.0181895-04:00",
     "IsCompleted": false,
     "AssignedOwners": [
       "Bob",
@@ -95,8 +95,8 @@
     "Id": 11,
     "Title": "Design dashboard layout",
     "Description": "Create the initial dashboard wireframe and integrate sample Bootstrap charts.",
-    "AssignedDate": "2025-08-22T09:39:58.4650819-04:00",
-    "DueDate": "2025-08-27T09:39:58.465082-04:00",
+    "AssignedDate": "2025-08-22T12:14:56.01819-04:00",
+    "DueDate": "2025-08-27T12:14:56.0181901-04:00",
     "IsCompleted": true,
     "AssignedOwners": [
       "Alice"
